@@ -94,6 +94,16 @@ ul {
     justify-content: space-between;
 }
 
+.password {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.password2 {
+    margin-left: 100px;
+}
+
 a:hover {
     color: green;
 }

@@ -23,29 +23,34 @@
     </h2>
     <form id="formInscription">
         <div>
-            <label for="name">Nom:</label>
-            <input type="text" id="name" name="name" size=30 required>
+            <label for="lastname">Nom:</label>
+            <input type="text" id="lastname" name="lastname" size=30 minlength=3 required pattern="[a-zA-Z ]{3,30}">
         </div>
         <div>
-            <label for="lastname">Prenom:</label>
-            <input type="text" id="lastname" name="lastname" size=30 required>
+            <label for=" firstname ">Prenom:</label>
+            <input type="text " id="firstname " name="firstname " size=30 required>
         </div>
         <div>
-            <label for="birth">Date de naissance:</label>
-            <input type="date" id="birth" name="birth" required>
+            <label for="birthdate ">Date de naissance:</label>
+            <input type="date" id="birthdate " name="birthdate " required>
         </div>
         <div>
-            <label for="mail">Courriel:</label>
-            <input type="email" id="mail" name="mail" size=100 required>
+            <label for="mail ">Courriel:</label>
+            <input type="email " id="mail " name="mail " size=100 required>
         </div>
         <div>
-            <label for="Login">Identifiant (6 caractéres minimum): </label>
-            <input type="text" id="login" name="login" size=10 minlength=6 required>
+            <label for="login ">Identifiant (6 caractéres minimum): </label>
+            <input type="text " id="login " name="login " size=20 minlength=6 required pattern="[0-9a-fA-F_@#]{6,20}">
         </div>
-
-        <div>
-            <label for="password">Mot de passe (8 caracteres minimum):</label>
-            <input type="password" id="password" name="password" size=10 minlength=8 required>
+        <div class="password">
+            <span>
+                <label for="password ">Mot de passe (8 caracteres minimum):</label>
+                <input type="password " id="password " name="password " size=25 minlength=8 required>
+            </span>
+            <span class="password2">
+                <label for="password2"> Ressaisie du mot de passe :</label>
+                <input type="password" id="password2" name="password2" size=25 minlength=8 required>
+            </span>
         </div>
         <div class=".AffBoutton">
             <label></label>
