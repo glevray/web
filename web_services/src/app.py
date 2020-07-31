@@ -1,119 +1,19 @@
-from flask import Flask 
-from flask import jsonify
-from flask import abort
-from flask import request
+from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from controlers.todo_controler import TodosControler
 
+# initialisation de l'application Flask
 app = Flask(__name__)
+# mise en place des CORS
 CORS(app)
+# définition d'une variable de configuration pour sqlalchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@192.168.99.100:3306/users'
+# initionalisation de la connexion à la base de données
+db = SQLAlchemy(app)
+# mise en place du controlleur pour les todos
+TodosControler.register(app)
 
-tasks = [
-    {   "idutilisateur" : 1,
-        "lastname"  : "lastname",
-        "firstname" : "firstname",
-        "birthdate" : "06/08/1968",
-        "email"     : "gege@free.fr",
-        "login"     : "login",
-        "password"  : "password"
-    },
-    {   "idutilisateur" : 2,
-        "lastname"  : "lastname",
-        "firstname" : "firstname",
-        "birthdate" : "06/08/1968",
-        "email"     : "gege@free.fr",
-        "login"     : "login",
-        "password"  : "password"
-    },
-    {   "idutilisateur" : 3,
-        "lastname"  : "lastname",
-        "firstname" : "firstname",
-        "birthdate" : "06/08/1968",
-        "email"     : "gege@free.fr",
-        "login"     : "login",
-        "password"  : "password"
-    }
-]
-
-@app.route('/todos',)
-def affiche_todo():
-    return (jsonify(tasks),200)
-
-@app.route('/todos/<int:todo_id>',)
-def affiche_liste(todo_id):
-
-    result = [todo for todo in tasks if todo['idutilisateur'] == todo_id]
-    
-    todo = {
-        
-        "idutilisateur"     : result[0]['idutilisateur'] +1,
-        "firstname"         : result[0]["firstname"],
-        "lastname"          : result[0]["lastname"],
-        "birthdate"         : result[0]["birthdate"],
-        "email"             : result[0]["email"],
-        "login"             : result[0]["login"],
-        "password"          : result[0]["password"]
-    }
-    
-    print("result",result)
-    print("todo",todo)
-
-
-    return jsonify(todo),204
-
-
-
-
-@app.route('/todos',methods=['POST'])
-def create_todo():
-
-    if not request.json or not 'lastname' in request.json:
-        abort(400)
-    
-    lastname    = request.json['lastname']
-    firstname   = request.json['firstname']
-    birthdate   = request.json['birthdate']
-    email       = request.json['email']
-    login       = request.json['login']
-    password    = request.json['password']
-
-    todo = {
-        
-        "idutilisateur"     : tasks[-1]["idutilisateur"] +1,
-        "firstname"         : firstname,
-        "lastname"          : lastname,
-        "birthdate"         : birthdate,
-        "email"             : email,
-        "login"             : login,
-        "password"          : password
-    }
-
-    tasks.append(todo)
-    return jsonify(todo),201
-
-@app.route('/todos/<int:todo_id>',methods=['PUT'])
-def update_todo(todo_id):
-
-    result = [todo for todo in tasks if todo['idutilisateur'] == todo_id]
-    
-    todo=result[0]
-
-    todo['firstname']=request.json['firstname']
-    todo['lastname']=request.json['lastname']
-    todo['email']=request.json['email']
-    todo['birthdate']=request.json['birthdate']
-    todo['login']=request.json['login']
-    todo['password']=request.json['password']
-
-    return jsonify(todo),204
-
-@app.route('/todos/<int:todo_id>',methods=['DELETE'])
-def delete_by_id(todo_id):
-
-    result = [todo for todo in tasks if todo['idutilisateur'] == todo_id]
-    tasks.remove(result[0])
-
-    return 201
-
-
-if '__name__'=='__main__':
-    app.run(debgug=True)
+# lancement de l'application
+if __name__ == "__main__":
+    app.run(debug=True)
