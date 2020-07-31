@@ -1,0 +1,21 @@
+
+
+
+
+
+
+const send = (event) => {
+    
+    event.preventDefault();
+    console.log(event)
+    let option = {
+        method:"POST",
+        body:JSON.stringify(user)
+    }
+
+fetch('http://192.168.99.100/inscription/', option).then (resp=>resp.json()).then (json=>renderUsers(json))
+}
+document.querySelector("#RegisterUserForm").addEventListener('submit', send);
+console.log(document.querySelector("#RegisterUserForm"))
+
+
