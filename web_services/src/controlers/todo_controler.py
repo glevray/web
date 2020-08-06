@@ -2,6 +2,8 @@ from flask_classful import FlaskView, route
 from flask import jsonify
 from flask import abort
 from flask import request
+#cross origine ajouter je 05/08/2020
+from flask_cors import cross_origin
 import services.todo_service as todoService
 from dto.todo_dto import TodoDto
 
@@ -23,7 +25,10 @@ class TodosControler(FlaskView):
         todo = todoService.get_todo_by_id(todo_id)
         return jsonify(todo)
 
-    @route('/', methods=['POST'])
+    # Afin d'empecher l'erreur de croos-reference: 
+    # acces to fetch at ......... from origin 'null' has been blocked by CORS
+    @route('/inscription', methods=['POST','OPTIONS'])
+    @cross_origin(origin='*',headers=['Content-Type','Authorization'])
     def create_todo(self):
         firstname = request.json['firstname']
         lastname = request.json['lastname']

@@ -18,7 +18,7 @@ def get_todo_by_id(todo_id):
 def create_todo(todo):
     db.session.add(todo)
     db.session.commit()
-    return todo.id
+    return todo.idutilisateurs
 
 
 def update_todo(todo_id):

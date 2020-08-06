@@ -13,8 +13,8 @@ const send = (event) => {
             });
     */
 
-/*    fetch('http://127.0.0.1:5000/api/todos')*/
-      fetch('http://192.168.99.100:5000/api/todos')
+    fetch('http://127.0.0.1:5000/api/todos')
+        /*  fetch('http://192.168.99.100:5000/api/todos')*/
         .then(function(response) {
             response.json()
                 .then(function(value) {
