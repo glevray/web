@@ -5,7 +5,7 @@ db = SQLAlchemy()
 # création d'une classe qui permettra de faire des objets qui mettront en forme les informations recus depuis la BDD
 
 
-class Todo(db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     idutilisateurs = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String)

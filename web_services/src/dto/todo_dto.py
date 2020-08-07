@@ -1,4 +1,4 @@
-class TodoDto():
+class UserDto():
     def __init__(self, firstname,lastname,birthdate):
         self.firstname = firstname
         self.lastname = lastname
