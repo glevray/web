@@ -94,7 +94,7 @@ ul {
     justify-content: space-between;
 }
 
-.password {
+.motdepasse {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

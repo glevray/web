@@ -27,3 +27,8 @@ def update_todo(todo_id):
 
 def delete_todo(todo_id):
     return todo_id
+
+def create_ident(ident):
+    db.session.add(ident)
+    db.session.commit()
+    return ident.idident

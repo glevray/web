@@ -5,7 +5,7 @@ from flask import request
 #cross origine ajouter je 05/08/2020
 from flask_cors import cross_origin
 import services.todo_service as todoService
-from dto.todo_dto import TodoDto
+from dto.todo_dto import TodoDto,IdentDto
 
 # création d'une classe qui hérite de FlaskView
 
@@ -45,3 +45,14 @@ class TodosControler(FlaskView):
     def delete_todo(self, todo_id):
         result = todoService.delete_todo(todo_id)
         return jsonify(result)
+
+
+
+    @route('/identifiant', methods=['POST','OPTIONS'])
+    @cross_origin(origin='*',headers=['Content-Type','Authorization'])
+    def create_identifiant(self):   
+        email = request.json['email']
+        identifiant = request.json['identifiant']
+        motdepasse = request.json['motdepasse']
+        Ident = IdentDto(email,identifiant,motdepasse)
+        return todoService.create_Ident(Ident)

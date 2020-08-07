@@ -19,3 +19,18 @@ class Todo(db.Model):
 
     def __repr__(self):
         return f'<Todo idutilisateurs:{self.idutilisateurs} firstname:{self.firstname} lastname:{self.lastname} birthdate: {self.birthdate}>'
+
+class Ident(db.Model):
+    __tablename__ = 'ident'
+    idident = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String)
+    identifiant = db.Column(db.String)
+    motdepasse = db.Column(db.String)
+
+    def __init__(self, email,identifiant,motdepasse):
+        self.email = email
+        self.identifiant = identifiant
+        self.motdepasse = motdepasse
+
+    def __repr__(self):
+        return f'<Ident idident:{self.idident} email:{self.email} identifiant:{self.identifiant} motdepasse: {self.motdepasse}>'

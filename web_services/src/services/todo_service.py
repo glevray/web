@@ -1,5 +1,5 @@
 import repositories.todo_repo as todoRepo
-from models.todo import Todo
+from models.todo import Todo,Ident
 import jsonpickle
 # défintion d'une méthode pour récupérer les todos dans la base de données avec le repo
 
@@ -27,3 +27,9 @@ def update_todo(todo_id):
 def delete_todo(todo_id):
     return todo_id
 
+
+def create_Ident(IdentDto):
+    ident = Ident(IdentDto.email,IdentDto.identifiant,IdentDto.motdepasse)
+    data = todoRepo.create_ident(ident)
+    IdentDto = jsonpickle.encode(data,max_depth=2)
+    return IdentDto
