@@ -41,13 +41,15 @@ class TodosControler(FlaskView):
         result = todoService.update_user(todo_id)
         return jsonify(result)
 
-    @route('/<int:todo_id>', methods=['DELETE'])
+    # methode de suppression d'un utilisateur et de son identifiant en meme tps
+    # retourne null si non trouvé
+    @route('/utilisateur/<int:todo_id>', methods=['DELETE'])
     def delete_user(self, todo_id):
         result = todoService.delete_user(todo_id)
         return jsonify(result)
 
 
-
+    # creation de l'identifiant dans une base a part
     @route('/identifiant', methods=['POST','OPTIONS'])
     @cross_origin(origin='*',headers=['Content-Type','Authorization'])
     def create_identifiant(self):   

@@ -2,7 +2,7 @@ import repositories.todo_repo as todoRepo
 from models.todo import User,Ident
 import jsonpickle
 
-# défintion d'une méthode pour récupérer les todos dans la base de données avec le repo
+# définition d'une méthode pour récupérer les todos dans la base de données avec le repo
 
 
 def get_users():
@@ -26,7 +26,9 @@ def update_user(user_id):
 
 
 def delete_user(user_id):
-    return user_id
+    print("dans la couche service delete des tables")
+    data=todoRepo.delete_user(user_id)
+    return data
 
 
 def create_Ident(IdentDto):
