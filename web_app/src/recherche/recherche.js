@@ -45,14 +45,14 @@ function affiche_utilisateurs(tabUtil) {
 
             ligne.cells[0].innerHTML = tabUtil[i].firstname;
             ligne.cells[1].innerHTML = tabUtil[i].lastname;
-            ligne.cells[2].innerHTML = tabUtil[i].birthdate;
+            ligne.cells[2].innerHTML = tabUtil[i].birthdate.substring(0, 10);
 
             i++;
 
         } else {
-            ligne.cells[0].innerHTML = '';
-            ligne.cells[1].innerHTML = '';
-            ligne.cells[2].innerHTML = '';
+            ligne.cells[0].innerHTML = ' ';
+            ligne.cells[1].innerHTML = ' ';
+            ligne.cells[2].innerHTML = ' ';
         }
 
 

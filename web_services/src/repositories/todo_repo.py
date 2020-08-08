@@ -29,11 +29,6 @@ def delete_user(id):
 # on supprime dans la table des utilisateurs et des identifiants les 
 # dont la clé est passée en paramétre
 
-
-    print("dans le repo delete des tables")
-
-
-    
     deluser  = db.session.query(User).get(id)
 
     print("test1:",deluser,deluser is None)
@@ -41,6 +36,7 @@ def delete_user(id):
         return None
 
     delident = db.session.query(Ident).get(id)
+    print("test1:",delident,delident is None)
     if delident is None: # eregistrement non trouvé
         return None
         

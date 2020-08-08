@@ -7,7 +7,9 @@ import jsonpickle
 
 def get_users():
     users = todoRepo.get_users()
-    return jsonpickle.encode(users)
+    print(users)
+
+    return jsonpickle.encode(users,unpicklable=False)
 
 
 def get_user_by_id(user_id):
