@@ -34,8 +34,12 @@ class TodosControler(FlaskView):
         firstname = request.json['firstname']
         lastname = request.json['lastname']
         birthdate = request.json['birthdate']
-        result = UserDto(firstname,lastname,birthdate)
-        return todoService.create_user(result)
+        userdto = UserDto(firstname,lastname,birthdate)
+        email = request.json['email']
+        identifiant = request.json['identifiant']
+        motdepasse = request.json['motdepasse']
+        identdto = IdentDto(email,identifiant,motdepasse)
+        return todoService.create_user(userdto,identdto)
 
     @route('/<int:todo_id>', methods=['PUT'])
     def update_user(self, todo_id):
@@ -49,16 +53,6 @@ class TodosControler(FlaskView):
         result = todoService.delete_user(todo_id)
         return jsonify(result)
 
-
-    # creation de l'identifiant dans une base a part
-    @route('/identifiant', methods=['POST','OPTIONS'])
-    @cross_origin(origin='*',headers=['Content-Type','Authorization'])
-    def create_identifiant(self):   
-        email = request.json['email']
-        identifiant = request.json['identifiant']
-        motdepasse = request.json['motdepasse']
-        Ident = IdentDto(email,identifiant,motdepasse)
-        return todoService.create_Ident(Ident)
 
     @route('/connexion', methods=['POST','OPTIONS'])
     @cross_origin(origin='*',headers=['Content-Type','Authorization'])

@@ -18,9 +18,12 @@
         </nav>
     </div>
     <h1>Le site des fadas de voile ...</h1>
-    <h2>
-        Formulaire d'inscription:
-    </h2>
+    <div class='enlongueur'>
+        <h2>
+            Formulaire d'inscription:
+        </h2>
+        <h2 id="texterreur"></h2>
+    </div>
     <form id="formInscription">
         <div>
             <label for="lastname">Nom:</label>
@@ -42,7 +45,7 @@
             <label for="identifiant">Identifiant (6 caractéres minimum): </label>
             <input type="text " id="identifiant" name="identifiant" size=20 minlength=6 required pattern="[0-9a-zA-Z_@#]{6,20}">
         </div>
-        <div class="motdepasse">
+        <div class="enlongueur">
             <span>
                 <label for="motdepasse">Mot de passe (8 caracteres minimum):</label>
                 <input type="motdepasse" id="motdepasse" name="motdepasse" size=25 minlength=8 required>

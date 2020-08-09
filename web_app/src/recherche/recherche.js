@@ -2,17 +2,6 @@ const send = (event) => {
 
     event.preventDefault();
 
-    /*
-        fetch('http://127.0.0.1:5000/lecture')
-            .then(function(response) {
-                response.json()
-                    .then(function(value) {
-                        affiche_utilisateurs(value);
-                        console.log(value);
-                    });
-            });
-    */
-
     fetch('http://127.0.0.1:5000/api/todos')
         /*  fetch('http://192.168.99.100:5000/api/todos')*/
         .then(function(response) {
@@ -21,7 +10,7 @@ const send = (event) => {
                     var obj = JSON.parse(value);
                     console.log(obj);
                     console.log(obj[0].firstname);
-                    affiche_utilisateurs(obj);
+                    ajouterLignes(obj);
                 });
         });
 
@@ -30,10 +19,6 @@ const send = (event) => {
 
 }
 document.querySelector("#formRecherche").addEventListener('submit', send);
-
-
-
-
 
 function affiche_utilisateurs(tabUtil) {
     var tabLignes = document.querySelector("#monTableau").rows; //on récupère les lignes du tableau
@@ -57,11 +42,35 @@ function affiche_utilisateurs(tabUtil) {
 
 
     }
+}
 
+function ajouterLignes(tabUtil) {
 
-    /*  ligne.cells[3].innerHTML = tabUtil[i].email;
-        ligne.cells[4].innerHTML = tabUtil[i].login;
-        ligne.cells[5].innerHTML = tabUtil[i].password;
+    console.log("dans ajouter ligne");
+
+    var tableau = document.querySelector("#monTableau")
+
+    let i = 0;
+
+    console.log(i, tabUtil.length);
+
+    while (i < tabUtil.length) {
+
+        console.log(i, tabUtil.length);
+
+        var ligne = tableau.insertRow(-1); //on ajoute une ligne
+
+        var colonne1 = ligne.insertCell(0); //on a une ajouté une cellule
+        colonne1.innerHTML += tabUtil[i].firstname; //on y met le nom
+
+        var colonne2 = ligne.insertCell(1); //on ajoute la seconde cellule
+        colonne2.innerHTML += tabUtil[i].lastname;
+
+        var colonne3 = ligne.insertCell(2);
+        colonne3.innerHTML += tabUtil[i].birthdate.substring(0, 10); //on y met la date de naissance
+
         i++;
-    */
+
+    }
+
 }

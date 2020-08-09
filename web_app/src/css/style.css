@@ -94,7 +94,7 @@ ul {
     justify-content: space-between;
 }
 
-.motdepasse {
+.enlongueur {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -145,4 +145,8 @@ td {
     padding-left: 20px;
     padding-right: 20px;
     width: auto;
+}
+
+#texterreur {
+    color: red;
 }

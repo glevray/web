@@ -1,21 +1,32 @@
 let users = {}
 let ident = {}
 
-const send = (event) => {
+const checkmail = (event) => {
     event.preventDefault();
+    console.log(event);
+
+    if (event.target.motdepasse.value != event.target.motdepasse2.value) {
+        erreur = document.querySelector("#texterreur");
+        erreur.innerHTML = "Veuillez saisir deux fois le même mot de passe";
+        return false
+    } else {
+        erreur = document.querySelector("#texterreur");
+        erreur.innerHTML = "";
+        return true
+    }
+
+}
+const send = (event) => {
+
+    event.preventDefault();
+
+    if (!(checkmail(event))) return false;
 
     console.log(event);
 
-    for (let ind = 0; ind < 3; ind++) {
+    for (let ind = 0; ind < 6; ind++) {
         users[event.target[ind].name] = event.target[ind].value;
     }
-    for (let ind = 3; ind < 6; ind++) {
-        ident[event.target[ind].name] = event.target[ind].value;
-    }
-
-
-    console.log(users);
-    console.log(ident);
 
     let option_inscription = {
         method: "POST",
@@ -25,22 +36,12 @@ const send = (event) => {
         }
     }
 
-    let option_identifiant = {
-        method: "POST",
-        body: JSON.stringify(ident),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
     fetch('http://127.0.0.1:5000/api/todos/inscription', option_inscription).
         /*fetch('http://192.168.99.100:5000/api/todos', option).*/
-    then(resp => resp.json()).then(resp => console.log(resp));
+    then(resp => resp.json()).then(document.location.href = "../index.html");
 
-    fetch('http://127.0.0.1:5000/api/todos/identifiant', option_identifiant).
-        /*fetch('http://192.168.99.100:5000/api/todos', option).*/
-    then(resp => resp.json()).then(resp => console.log(resp));
-
-
+    erreur = document.querySelector("#texterreur");
+    erreur.innerHTML = "Erreur lors de l'inscription";
 }
+
 document.querySelector("#formInscription").addEventListener('submit', send);

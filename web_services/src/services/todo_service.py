@@ -16,11 +16,14 @@ def get_user_by_id(user_id):
     return user_id
 
 
-def create_user(userDto):
+def create_user(userDto,identDto):
     user = User(userDto.firstname, userDto.lastname, userDto.birthdate)
-    data = todoRepo.create_user(user)
-    userDto = jsonpickle.encode(data,max_depth=2)
-    return userDto
+    datauser = todoRepo.create_user(user)
+    ident = Ident(identDto.email,identDto.identifiant,identDto.motdepasse)
+    dataident = todoRepo.create_ident(ident)
+    IdentDto = jsonpickle.encode(dataident,max_depth=2)
+    UserDto = jsonpickle.encode(datauser,max_depth=2)
+    return UserDto,IdentDto
 
 
 def update_user(user_id):
@@ -32,12 +35,6 @@ def delete_user(user_id):
     data=todoRepo.delete_user(user_id)
     return data
 
-
-def create_Ident(IdentDto):
-    ident = Ident(IdentDto.email,IdentDto.identifiant,IdentDto.motdepasse)
-    data = todoRepo.create_ident(ident)
-    IdentDto = jsonpickle.encode(data,max_depth=2)
-    return IdentDto
 
 def create_connexion(IdentDto):
     ident = Ident(IdentDto.email,IdentDto.identifiant,IdentDto.motdepasse)
