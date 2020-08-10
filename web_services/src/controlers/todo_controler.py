@@ -21,6 +21,12 @@ class TodosControler(FlaskView):
         result = todoService.get_users()  # todos récupérer depuis le service
         return jsonify(result)
 
+    @route('/administration')
+    def get_comptes(self):  # definition d'une méthode pour récupérer les todos depuis le service
+        result = todoService.get_comptes()  # todos récupérer depuis le service
+    #   print("dans le service affichage de comptes",result)
+        return jsonify(result)
+
     @route('/<int:todo_id>')
     def get_user_by_id(self, todo_id):
         result = todoService.get_user_by_id(todo_id)
@@ -48,8 +54,9 @@ class TodosControler(FlaskView):
 
     # methode de suppression d'un utilisateur et de son identifiant en meme tps
     # retourne null si non trouvé
-    @route('/utilisateur/<int:todo_id>', methods=['DELETE'])
-    def delete_user(self, todo_id):
+    @route('/suppression', methods=['DELETE'])
+    def delete_user(self):
+        todo_id = request.json['identifiant']
         result = todoService.delete_user(todo_id)
         return jsonify(result)
 

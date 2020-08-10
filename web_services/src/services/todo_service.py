@@ -7,10 +7,25 @@ import jsonpickle
 
 def get_users():
     users = todoRepo.get_users()
-    print(users)
-
     return jsonpickle.encode(users,unpicklable=False)
 
+def get_comptes():
+    comptes=todoRepo.get_comptes()
+    #print("A -->",comptes)
+    #print("B -->",comptes[0][1])
+
+    liste_compte = []
+
+    for compte in comptes:
+        objet = {
+            "idutilisateurs"     : compte[0].idutilisateurs,
+            "firstname"            : compte[0].firstname,
+            "lastname"             : compte[0].lastname,
+            "birthdate"            : compte[0].birthdate,
+            "email"                : compte[1].email
+        }
+        liste_compte.append(objet)
+    return jsonpickle.encode(liste_compte,unpicklable=False)
 
 def get_user_by_id(user_id):
     return user_id
@@ -29,9 +44,8 @@ def create_user(userDto,identDto):
 def update_user(user_id):
     return user_id
 
-
 def delete_user(user_id):
-    print("dans la couche service delete des tables")
+    print("dans la couche service delete des tables {}".format(user_id))
     data=todoRepo.delete_user(user_id)
     return data
 

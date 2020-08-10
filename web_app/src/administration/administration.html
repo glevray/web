@@ -17,33 +17,37 @@
         </nav>
     </div>
     <h1>Le site des fadas de voile ...</h1>
-    <h2>
-        Suppression de compte utilisateurs:<br>
-    </h2>
-
+    <div class='enlongueur'>
+        <h2>
+            Suppression de compte utilisateurs:<br>
+        </h2>
+        <h2 id="texterreur"></h2>
+    </div>
+    <form id="formSuppression">
+        <div>
+            <label for="identifiant">
+                ID Compte:</label>
+            <input type="text" id="identifiant" name="identifiant" size=5 minlength=1 required />
+            </label>
+            <input type="submit" value="Supprimer">
+        </div>
+    </form>
     <div>
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Date de naissance</th>
-                <th>Adress email</th>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prenom</td>
-                <td>Date de naissance</td>
-                <td>Adress email</td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prenom</td>
-                <td>Date de naissance</td>
-                <td>Adress email</td>
-            </tr>
+        <table id="monTableau">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Date de naissance</th>
+                    <th>Adress email</th>
+                </tr>
+            </thead>
         </table>
     </div>
 
+    <script type="text/javascript" src="../config/globalconfig.js"></script>
+    <script type="text/javascript" src="administration.js"></script>
 </body>
 
 </html>

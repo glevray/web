@@ -10,6 +10,11 @@ def get_users():
     users = User.query.all()
     return users
 
+def get_comptes():
+    users = db.session.query(User, Ident).filter(User.idutilisateurs == Ident.idident).all()
+    print (users)
+    return users
+
 
 def get_user_by_id(user_id):
     return user_id
@@ -31,12 +36,12 @@ def delete_user(id):
 
     deluser  = db.session.query(User).get(id)
 
-    print("test1:",deluser,deluser is None)
+    #print("test1:",deluser,deluser is None)
     if deluser is None: # eregistrement non trouvé
         return None
 
     delident = db.session.query(Ident).get(id)
-    print("test1:",delident,delident is None)
+    #print("test1:",delident,delident is None)
     if delident is None: # eregistrement non trouvé
         return None
         

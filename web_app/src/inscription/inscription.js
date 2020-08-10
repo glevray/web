@@ -36,9 +36,8 @@ const send = (event) => {
         }
     }
 
-    fetch('http://127.0.0.1:5000/api/todos/inscription', option_inscription).
-        /*fetch('http://192.168.99.100:5000/api/todos', option).*/
-    then(resp => resp.json()).then(document.location.href = "../index.html");
+    fetch(globalConfig.URLACCES + "/inscription", option_inscription).
+    then(resp => resp.json()).then(document.location.href = globalConfig.URLINDEX);
 
     erreur = document.querySelector("#texterreur");
     erreur.innerHTML = "Erreur lors de l'inscription";

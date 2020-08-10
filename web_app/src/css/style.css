@@ -131,6 +131,11 @@ label {
     justify-content: space-between;
 }
 
+#formSuppression {
+    margin-left: 200px;
+    justify-content: flex-start;
+}
+
 table {
     border: 1px solid black;
     background-color: #D1D1D1;
