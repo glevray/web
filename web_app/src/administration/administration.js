@@ -1,3 +1,6 @@
+if (!(sessionStorage.getItem("connexion")))
+    document.location.href = globalConfig.URLCONNECT;
+
 let compte = {}
 
 function send(event) {

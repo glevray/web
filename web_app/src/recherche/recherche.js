@@ -1,3 +1,6 @@
+if (!(sessionStorage.getItem("connexion")))
+    document.location.href = globalConfig.URLCONNECT;
+
 const send = (event) => {
 
     event.preventDefault();

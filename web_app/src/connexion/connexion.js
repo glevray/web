@@ -33,11 +33,5 @@ const send = (event) => {
         }
     });
 }
-const est_connecte = (retour) => {
-    console.log(retour);
-    console.log(typeof retour);
 
-    if (retour) { alert("connecte") } else { alert("non connecte"); }
-
-}
 document.querySelector("#formConnexion").addEventListener('submit', send);
