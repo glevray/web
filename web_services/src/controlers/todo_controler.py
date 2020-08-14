@@ -68,6 +68,9 @@ class TodosControler(FlaskView):
         motdepasse = request.json['motdepasse']
         identdto = IdentDto(email,identifiant,motdepasse)
         retour=todoService.create_connexion(identdto)
+
+        print("Au retour",retour)
+        print("Mdp:",retour.motdepasse,motdepasse)
         
         if retour == None or retour.motdepasse != motdepasse:
             result = False

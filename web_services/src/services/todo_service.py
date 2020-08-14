@@ -23,6 +23,9 @@ def get_comptes():
             "email"                : compte[1].email
         }
         liste_compte.append(objet)
+
+        print("Liste Compte:",liste_compte)
+
     return jsonpickle.encode(liste_compte,unpicklable=False)
 
 def get_user_by_id(user_id):
