@@ -11,9 +11,7 @@ def get_users():
 
 def get_comptes():
     comptes=todoRepo.get_comptes()
-    #print("A -->",comptes)
-    #print("B -->",comptes[0][1])
-
+    
     liste_compte = []
 
     for compte in comptes:
@@ -45,7 +43,6 @@ def update_user(user_id):
     return user_id
 
 def delete_user(user_id):
-    print("dans la couche service delete des tables {}".format(user_id))
     data=todoRepo.delete_user(user_id)
     return data
 

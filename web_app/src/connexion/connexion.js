@@ -21,18 +21,17 @@ const send = (event) => {
     }
 
     fetch(globalConfig.URLACCES + "/connexion", option_connexion).
-    then(response => response.json()).then(response => connecte = response);
-
-    if (connecte) {
-        document.location.href = globalConfig.URLINDEX;
-    } else
-
-    {
-        erreur = document.querySelector("#texterreur");
-        erreur.innerHTML = "Erreur lors de la connexion";
-    }
-
-
+    then(response => response.json()).then(response => {
+        connecte = response;
+        console.log("connecte", connecte);
+        if (connecte) {
+            sessionStorage.setItem("connexion", true);
+            document.location.href = globalConfig.URLINDEX;
+        } else {
+            erreur = document.querySelector("#texterreur");
+            erreur.innerHTML = "Erreur lors de la connexion";
+        }
+    });
 }
 const est_connecte = (retour) => {
     console.log(retour);

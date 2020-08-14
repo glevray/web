@@ -12,7 +12,6 @@ def get_users():
 
 def get_comptes():
     users = db.session.query(User, Ident).filter(User.idutilisateurs == Ident.idident).all()
-    print (users)
     return users
 
 
@@ -36,12 +35,10 @@ def delete_user(id):
 
     deluser  = db.session.query(User).get(id)
 
-    #print("test1:",deluser,deluser is None)
     if deluser is None: # eregistrement non trouvé
         return None
 
     delident = db.session.query(Ident).get(id)
-    #print("test1:",delident,delident is None)
     if delident is None: # eregistrement non trouvé
         return None
         
@@ -57,7 +54,6 @@ def create_ident(ident):
     return ident.idident
 
 def create_connexion(ident):
-    print(ident)
     result = Ident.query.filter_by(identifiant = ident.identifiant).first()
     db.session.remove()
     return result

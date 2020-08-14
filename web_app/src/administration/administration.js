@@ -41,6 +41,9 @@ fetch(globalConfig.URLACCES + "/administration")
 
 function creerTableau(tabUtil) {
 
+
+    console.log(sessionStorage.getItem('connexion'));
+
     console.log("dans ajouter ligne");
     console.log(tabUtil);
 

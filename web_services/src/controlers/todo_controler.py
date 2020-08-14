@@ -24,7 +24,6 @@ class TodosControler(FlaskView):
     @route('/administration')
     def get_comptes(self):  # definition d'une méthode pour récupérer les todos depuis le service
         result = todoService.get_comptes()  # todos récupérer depuis le service
-    #   print("dans le service affichage de comptes",result)
         return jsonify(result)
 
     @route('/<int:todo_id>')
@@ -75,7 +74,6 @@ class TodosControler(FlaskView):
         else:
             result = True
 
-        #print("result:{}:".format(result))
         return jsonify(result)
         
 

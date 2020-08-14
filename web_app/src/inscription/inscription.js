@@ -3,7 +3,6 @@ let ident = {}
 
 const checkmail = (event) => {
     event.preventDefault();
-    console.log(event);
 
     if (event.target.motdepasse.value != event.target.motdepasse2.value) {
         erreur = document.querySelector("#texterreur");
@@ -20,10 +19,11 @@ const send = (event) => {
 
     event.preventDefault();
 
-    if (!(checkmail(event))) return false;
-
     console.log(event);
 
+    if (!(checkmail(event))) return false;
+
+    /* Recuperation des valeurs de champs du formulaire */
     for (let ind = 0; ind < 6; ind++) {
         users[event.target[ind].name] = event.target[ind].value;
     }
