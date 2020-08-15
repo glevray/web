@@ -6,6 +6,7 @@ from flask import request
 from flask_cors import cross_origin
 import services.todo_service as todoService
 from dto.todo_dto import UserDto,IdentDto
+import re
 
 
 # création d'une classe qui hérite de FlaskView
@@ -14,6 +15,10 @@ from dto.todo_dto import UserDto,IdentDto
 class TodosControler(FlaskView):
     # définition d'une route de base
     route_base = '/api/todos/'
+
+    retour = {
+        "erreur": ""
+    }
 
     # dééfinition de l'extension de la route de base
     @route('/')
@@ -36,14 +41,66 @@ class TodosControler(FlaskView):
     @route('/inscription', methods=['POST','OPTIONS'])
     @cross_origin(origin='*',headers=['Content-Type','Authorization'])
     def create_user(self):
+
+        retour = {
+            "erreur": "anomalie"
+        }
+
         firstname = request.json['firstname']
+
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+    
+        if (not re.search(expression,firstname)):
+            retour = {
+            "erreur": "Prénom invalide"
+            }
+            return retour
+
+
         lastname = request.json['lastname']
+
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+    
+        if (not re.search(expression,lastname)):
+            retour = {
+            "erreur": "Nom invalide"
+            }
+            return retour
         birthdate = request.json['birthdate']
         userdto = UserDto(firstname,lastname,birthdate)
         email = request.json['email']
+
+        expression = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        if (not re.search(expression,email)):
+            retour = {
+            "erreur": "email invalide"
+            }
+            return retour
+
         identifiant = request.json['identifiant']
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+    
+        if (not re.search(expression,identifiant)):
+            retour = {
+            "erreur": "identifiant invalide"
+            }
+            return retour
+
         motdepasse = request.json['motdepasse']
+
+        #8 caracteres
+        #uppercase letters: A-Z, lowercase letters: a-z,numbers: 0-9,
+        #any of the special characters: @#$%^&+=
+
+        expression = r"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
+        if (not re.search(expression,motdepasse)):
+            retour = {
+            "erreur": "mot de passe invalide"
+            }
+            return retour
+
         identdto = IdentDto(email,identifiant,motdepasse)
+
         return todoService.create_user(userdto,identdto)
 
     @route('/<int:todo_id>', methods=['PUT'])

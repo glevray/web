@@ -46,8 +46,6 @@ def delete_user(id):
     db.session.delete(delident)
     db.session.commit()
 
-    print("SUP",deluser,delident)
-
     return id
 
 def create_ident(ident):

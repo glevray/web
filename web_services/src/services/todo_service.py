@@ -24,7 +24,7 @@ def get_comptes():
         }
         liste_compte.append(objet)
 
-        print("Liste Compte:",liste_compte)
+    #   print("Liste Compte:",liste_compte)
 
     return jsonpickle.encode(liste_compte,unpicklable=False)
 

@@ -37,10 +37,19 @@ const send = (event) => {
     }
 
     fetch(globalConfig.URLACCES + "/inscription", option_inscription).
-    then(resp => resp.json()).then(document.location.href = globalConfig.URLINDEX);
+    then(resp => resp.json()).then(resp => {
+        console.log("resultat:", resp);
+        if ((resp != null) && (!(resp.erreur)))
+            document.location.href = globalConfig.URLINDEX;
+        /*    console.log("dnas le debranchement") */
+        else {
+            erreur = document.querySelector("#texterreur");
+            if (resp.erreur)
+                erreur.innerHTML = resp.erreur;
+            else erreur.innerHTML = "Erreur lors de l'inscription";
+        }
 
-    erreur = document.querySelector("#texterreur");
-    erreur.innerHTML = "Erreur lors de l'inscription";
+    });
 }
 
 document.querySelector("#formInscription").addEventListener('submit', send);
