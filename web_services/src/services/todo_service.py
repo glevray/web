@@ -55,3 +55,22 @@ def create_connexion(IdentDto):
     data = todoRepo.create_connexion(ident)
     return data
     
+def recherche_user(rech):
+    
+    comptes=todoRepo.recherche_user(rech)
+    
+    liste_compte = []
+
+    for compte in comptes:
+        objet = {
+            "idutilisateurs"       : compte[0],
+            "lastname"             : compte[1],
+            "firstname"            : compte[2],
+            "email"                : compte[3],
+            "birthdate"            : compte[4]
+        }
+        liste_compte.append(objet)
+
+    print ("Liste",liste_compte)
+
+    return jsonpickle.encode(liste_compte,unpicklable=False)

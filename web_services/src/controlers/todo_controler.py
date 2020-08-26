@@ -7,12 +7,63 @@ from flask_cors import cross_origin
 import services.todo_service as todoService
 from dto.todo_dto import UserDto,IdentDto
 import re
-
+import os
 
 # création d'une classe qui hérite de FlaskView
 
-
 class TodosControler(FlaskView):
+
+    def verif_firstname(self,firstname):
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+
+        if (not re.search(expression,firstname)):
+            print("erreur firstname")
+            retour = {
+            "erreur": "Prénom invalide"
+            }
+            return retour
+
+    def verif_lastname(self,lastname):
+    
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+
+        if (not re.search(expression,lastname)):
+            retour = {
+            "erreur": "Nom invalide"
+            }
+            return retour
+
+    def verif_identifiant(self,identifiant):
+    
+        expression = "^[A-Za-z\é\è\ê\-]+$"
+
+        if (not re.search(expression,identifiant)):
+            retour = {
+            "erreur": "Identifiant invalide"
+            }
+            return retour
+
+    def verif_email(self,email):
+
+        expression = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        if (not re.search(expression,email)):
+            retour = {
+            "erreur": "email invalide"
+            }
+            return retour
+
+    def verif_motdepasse (self,motdepasse):
+        #8 caracteres
+        #uppercase letters: A-Z, lowercase letters: a-z,numbers: 0-9,
+        #any of the special characters: @#$%^&+=
+
+        expression = r"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
+        if (not re.search(expression,motdepasse)):
+            retour = {
+            "erreur": "mot de passe invalide"
+            }
+            return retour
+
     # définition d'une route de base
     route_base = '/api/todos/'
 
@@ -42,62 +93,42 @@ class TodosControler(FlaskView):
     @cross_origin(origin='*',headers=['Content-Type','Authorization'])
     def create_user(self):
 
-        retour = {
-            "erreur": "anomalie"
-        }
+
+        lastname = request.json['lastname']
+        
+        retour = TodosControler.verif_lastname(self,lastname)
+        if (retour):
+            return retour
 
         firstname = request.json['firstname']
 
-        expression = "^[A-Za-z\é\è\ê\-]+$"
-    
-        if (not re.search(expression,firstname)):
-            retour = {
-            "erreur": "Prénom invalide"
-            }
+        retour = TodosControler.verif_firstname(self,firstname)
+        if (retour):
             return retour
 
-
-        lastname = request.json['lastname']
-
-        expression = "^[A-Za-z\é\è\ê\-]+$"
-    
-        if (not re.search(expression,lastname)):
-            retour = {
-            "erreur": "Nom invalide"
-            }
-            return retour
         birthdate = request.json['birthdate']
+
         userdto = UserDto(firstname,lastname,birthdate)
+    
         email = request.json['email']
 
-        expression = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        if (not re.search(expression,email)):
-            retour = {
-            "erreur": "email invalide"
-            }
+        retour = TodosControler.verif_email(self,email)
+        if (retour):
             return retour
 
+
         identifiant = request.json['identifiant']
-        expression = "^[A-Za-z\é\è\ê\-]+$"
-    
-        if (not re.search(expression,identifiant)):
-            retour = {
-            "erreur": "identifiant invalide"
-            }
+
+        retour = TodosControler.verif_identifiant(self,identifiant)
+        if (retour):
             return retour
 
         motdepasse = request.json['motdepasse']
 
-        #8 caracteres
-        #uppercase letters: A-Z, lowercase letters: a-z,numbers: 0-9,
-        #any of the special characters: @#$%^&+=
-
-        expression = r"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
-        if (not re.search(expression,motdepasse)):
-            retour = {
-            "erreur": "mot de passe invalide"
-            }
+        retour = TodosControler.verif_motdepasse(self,motdepasse)
+        if (retour):
             return retour
+
 
         identdto = IdentDto(email,identifiant,motdepasse)
 
@@ -107,6 +138,41 @@ class TodosControler(FlaskView):
     def update_user(self, todo_id):
         result = todoService.update_user(todo_id)
         return jsonify(result)
+
+    @route('/recherche/')
+    def recherche_user(self):
+
+        print("Arguments:{}".format(request.args['firstname']))
+
+        lastname = request.args['lastname']
+
+        if lastname :
+            retour = TodosControler.verif_lastname(self,lastname)
+            if retour:
+                return retour
+
+        firstname = request.args['firstname']
+        if firstname:
+            retour = TodosControler.verif_firstname(self,firstname)
+            if retour:
+                return retour
+
+        email = request.args['email']
+        if email:
+            retour = TodosControler.verif_email(self,email)
+            if retour:
+                return retour
+
+        rech={
+            "firstname" : firstname,
+            "lastname"  : lastname,
+            "email"     : email
+        }
+        
+        result = todoService.recherche_user(rech)
+
+        return jsonify(result)
+
 
     # methode de suppression d'un utilisateur et de son identifiant en meme tps
     # retourne null si non trouvé
@@ -120,14 +186,16 @@ class TodosControler(FlaskView):
     @route('/connexion', methods=['POST','OPTIONS'])
     @cross_origin(origin='*',headers=['Content-Type','Authorization'])
     def create_connexion(self):   
+        
+        print("Version os",os.name)
         email = ""
         identifiant = request.json['identifiant']
         motdepasse = request.json['motdepasse']
         identdto = IdentDto(email,identifiant,motdepasse)
         retour=todoService.create_connexion(identdto)
 
-        print("Au retour",retour)
-        print("Mdp:",retour.motdepasse,motdepasse)
+        #print("Au retour",retour)
+        #print("Mdp:",retour.motdepasse,motdepasse)
         
         if retour == None or retour.motdepasse != motdepasse:
             result = False
@@ -136,4 +204,4 @@ class TodosControler(FlaskView):
 
         return jsonify(result)
         
-
+    

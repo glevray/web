@@ -2,6 +2,8 @@
 au menu de recherche et d'admin */
 console.log("recuperation de la variable de session connexion", sessionStorage.getItem("connexion"));
 console.log(sessionStorage.getItem("connexion"));
+
+
 if (sessionStorage.getItem("connexion")) {
     document.querySelector('#connexion').remove();
     document.querySelector('#inscription').remove();

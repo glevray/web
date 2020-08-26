@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from models.todo import User,Ident
+from flask import jsonify
 
 db = SQLAlchemy()
 
@@ -12,6 +13,7 @@ def get_users():
 
 def get_comptes():
     users = db.session.query(User, Ident).filter(User.idutilisateurs == Ident.idident).all()
+    print ("Get_comptes:",users)
     return users
 
 
@@ -57,3 +59,17 @@ def create_connexion(ident):
     result = Ident.query.filter_by(identifiant = ident.identifiant).first()
     db.session.remove()
     return result
+
+def recherche_user(rech):
+    
+    requete = """ select idutilisateurs,firstname,lastname,email,birthdate from users,ident where idutilisateurs=idident"""
+    if rech['firstname']!='':
+        requete = requete + """ and firstname = '"""+rech['firstname']+"'"
+    if rech['lastname']!='':
+        requete = requete + """ and lastname = '"""+rech['lastname']+"'"
+    if rech['email']!='':
+        requete = requete + """ and email = '"""+rech['email']+"'"
+
+    row = db.session.execute(requete)
+
+    return row
